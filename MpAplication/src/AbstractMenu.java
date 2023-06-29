@@ -1,5 +1,5 @@
 public abstract class AbstractMenu {
-    public void starMenu(){
+    public void start(){
 
 
     }

@@ -22,9 +22,11 @@ public class UserController {
     public void startMenu(User user){
         this.setCurrentUser(this.getSessionController().getCurrentUser());
         if (user instanceof UserOperator) {
-
+            OperatorMenu operatorMenu = new OperatorMenu();
+            operatorMenu.start();
             }else if (user instanceof UserPlayer){
-            System.out.println("te muestro menu jugador");
+            UserMenu userMenu = new UserMenu();
+            userMenu.start();
             }
     }
 
