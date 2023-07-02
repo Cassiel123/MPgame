@@ -1,8 +1,12 @@
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Scanner;
 
 public class NewUserController extends SessionController{
     private SessionController sessionController;
-    public NewUserController(SessionController sessionController) {
+    public NewUserController(SessionController sessionController) throws IOException {
         this.setSessionController(sessionController);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenido al sistema de registro");
@@ -17,13 +21,15 @@ public class NewUserController extends SessionController{
         switch (opcion){
             case 1:
                 UserOperator userOperator = new UserOperator(nombre,nick,contraseña);
+                this.serializeUser(userOperator);
                 super.getNickNameToPassword().put(nombre,nick);
-                this.getSessionController().getNickNameToPassword().put(nombre,nick);
+                this.getSessionController().getNickNameToPassword().put(nick,contraseña);
                 this.setCurrentUser(userOperator);
                 break;
             case 2:
                 UserPlayer userPlayer = new UserPlayer(nombre,nick,contraseña);
-                this.getSessionController().getNickNameToPassword().put(nombre,nick);
+                this.serializeUser(userPlayer);
+                this.getSessionController().getNickNameToPassword().put(nick,contraseña);
                 this.setCurrentUser(userPlayer);
                 break;
         }
@@ -35,5 +41,14 @@ public class NewUserController extends SessionController{
 
     public void setSessionController(SessionController sessionController) {
         this.sessionController = sessionController;
+    }
+
+    public void serializeUser(User user) throws FileNotFoundException, IOException {
+
+        String fichero = user.getNick()+".dat";
+        ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream(fichero));
+        salida.writeObject(user);
+        salida.close();
+
     }
 }

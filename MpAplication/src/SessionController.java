@@ -1,7 +1,8 @@
+import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class SessionController {
+public class SessionController implements Serializable {
     private HashMap<String,String> nickNameToPassword;
     private User currentUser;
 
@@ -10,7 +11,7 @@ public class SessionController {
         this.setNickNameToPassword(map);
     }
 
-    public void DoOperation(){
+    public void DoOperation() throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Pulse 1 para iniciar sesion");
         System.out.println("Pulse 2 para registrarse como nuevo usuario");
@@ -42,4 +43,6 @@ public class SessionController {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+
 }
