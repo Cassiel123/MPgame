@@ -51,7 +51,7 @@ public class UserController {
             operatorMenu.start();
             }else if (user instanceof UserPlayer){
             UserMenu userMenu = new UserMenu();
-            userMenu.start();
+            userMenu.start(user);
             }
     }
 
